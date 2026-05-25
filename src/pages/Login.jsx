@@ -18,9 +18,21 @@ function Login() {
       return;
     }
 
-    alert("로그인 성공");
+    const savedUser = localStorage.getItem("userInfo");
 
-    navigate("/main");
+    if (!savedUser) {
+      alert("회원가입된 정보가 없습니다.");
+      return;
+    }
+
+    const userInfo = JSON.parse(savedUser);
+
+    if (id === userInfo.id && password === userInfo.password) {
+      alert("로그인 성공");
+      navigate("/main");
+    } else {
+      alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    }
   };
 
   return (
