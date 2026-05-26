@@ -214,6 +214,7 @@ function Home() {
           menus={selectedStore.menus}
           name={selectedStore.name}
           rate={selectedStore.rate}
+          storeId={selectedStore.id}
           onClose={() => setSelectedStore(null)}
         />
       )}
