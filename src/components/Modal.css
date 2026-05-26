@@ -104,3 +104,28 @@
   min-width: 20px;
   text-align: center;
 }
+
+@media (max-width: 402px) {
+  .modal-box {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .menu-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .btn-add {
+    align-self: flex-end;
+  }
+
+  .quantity-control {
+    align-self: flex-end;
+  }
+}

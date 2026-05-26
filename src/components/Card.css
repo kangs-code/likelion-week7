@@ -30,3 +30,17 @@
   color: #999;
   margin-top: 2px;
 }
+
+@media (max-width: 402px) {
+  .card-info h3 {
+    font-size: 14px;
+  }
+
+  .card-info .rate {
+    font-size: 12px;
+  }
+
+  .card-info .subscription {
+    font-size: 11px;
+  }
+}

@@ -139,3 +139,54 @@
 .btn-home:hover {
   background: #c62828;
 }
+
+.btn-checkout:hover {
+  background: #ffc107;
+}
+
+.payment-options button:hover {
+  background: #fff8e1;
+  border-color: #ffd54f;
+}
+
+.payment-options button.active {
+  background: #fff8e1;
+  border-color: #ffd54f;
+}
+
+@media (max-width: 402px) {
+  .cart-container {
+    padding: 80px 12px 12px;
+  }
+
+  .cart-container h2 {
+    font-size: 20px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cart-item-controls {
+    align-self: flex-end;
+  }
+
+  .cart-summary {
+    padding: 16px;
+  }
+
+  .cart-total {
+    font-size: 16px;
+  }
+
+  .payment-options {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .btn-checkout {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

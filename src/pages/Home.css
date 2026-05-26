@@ -11,8 +11,12 @@
 }
 
 @media (max-width: 402px) {
+  .home-container {
+    padding: 80px 12px 12px;
+  }
+
   .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 }
