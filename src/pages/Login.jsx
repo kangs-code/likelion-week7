@@ -28,8 +28,11 @@ function Login() {
     const userInfo = JSON.parse(savedUser);
 
     if (id === userInfo.id && password === userInfo.password) {
+      localStorage.setItem("isLogin", "true");
+
       alert("로그인 성공");
-      navigate("/main");
+      navigate("/");
+      window.location.reload();
     } else {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
@@ -58,7 +61,6 @@ function Login() {
 
         <div className="signup-link">
           <span>계정이 없나요?</span>
-
           <Link to="/signup">회원가입</Link>
         </div>
       </form>
