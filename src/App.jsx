@@ -1,20 +1,13 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Cart from "./pages/Cart";
 
 import "./index.css";
-
-function MainTemp() {
-  return (
-    <div className="temp-page">
-      <h1>메인 페이지</h1>
-      <p>팀원이 Main.jsx 구현 후 연결 예정</p>
-    </div>
-  );
-}
 
 function App() {
   return (
@@ -22,13 +15,11 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-
+        <Route path="/" element={<Home />} />
+        <Route path="/main" element={<Home />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/signup" element={<Signup />} />
-
-        <Route path="/main" element={<MainTemp />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   );
