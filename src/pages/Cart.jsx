@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCartStore from "../store/cartStore";
+import useCreditStore from "../store/creditStore";
 import "./Cart.css";
 
 function Cart() {
@@ -8,8 +9,12 @@ function Cart() {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
   const clearCart = useCartStore((state) => state.clearCart);
-  const [paymentMethod, setPaymentMethod] = useState(null);
+
+  const credit = useCreditStore((state) => state.credit);
+  const deduct = useCreditStore((state) => state.deduct);
+
   const [isOrdered, setIsOrdered] = useState(false);
+  const navigate = useNavigate();
 
   const cartItems = Object.values(cart);
   const grouped = cartItems.reduce((acc, item) => {
@@ -22,11 +27,19 @@ function Cart() {
     0
   );
 
+  const remainingCredit = credit - totalPrice;
+  const isEnough = totalPrice > 0 && remainingCredit >= 0;
+
   const handleCheckout = () => {
-    if (!paymentMethod) {
-      alert("결제 방법을 선택해주세요.");
+    if (cartItems.length === 0) return;
+
+    if (!isEnough) {
+      alert("크레딧이 부족합니다. 충전 후 다시 결제해주세요.");
+      navigate("/charge");
       return;
     }
+
+    deduct(totalPrice);
     clearCart();
     setIsOrdered(true);
   };
@@ -70,26 +83,42 @@ function Cart() {
             ))}
           </div>
           <div className="cart-summary">
-            <h3>결제하기</h3>
-            <div className="cart-payment">
-              <p className="payment-label">결제 방법</p>
-              <div className="payment-options">
-                {["카카오페이", "네이버페이", "카드 결제", "무통장 입금"].map((method) => (
-                  <button
-                    key={method}
-                    className={paymentMethod === method ? "active" : ""}
-                    onClick={() => setPaymentMethod(method)}
-                  >
-                    {method}
-                  </button>
-                ))}
+            <h3>결제하기 (크레딧)</h3>
+
+            <div className="credit-box">
+              <div className="credit-row">
+                <span>총 결제금액</span>
+                <span>{totalPrice.toLocaleString()}원</span>
+              </div>
+              <div className="credit-row">
+                <span>보유 크레딧</span>
+                <span>{credit.toLocaleString()}C</span>
+              </div>
+              <div className="credit-row">
+                <span>차감 예정 크레딧</span>
+                <span className="credit-negative">
+                  -{totalPrice.toLocaleString()}C
+                </span>
+              </div>
+              <div className="credit-row credit-row-final">
+                <span>결제 후 잔액</span>
+                <span className={isEnough ? "credit-positive" : "credit-insufficient"}>
+                  {remainingCredit.toLocaleString()}C
+                </span>
               </div>
             </div>
-            <div className="cart-total">
-              <span>총 결제금액</span>
-              <span>{totalPrice.toLocaleString()}원</span>
-            </div>
-            <button className="btn-checkout" onClick={handleCheckout}>
+
+            {!isEnough && (
+              <Link to="/charge" className="btn-charge-link">
+                크레딧이 부족해요. 충전하러 가기 →
+              </Link>
+            )}
+
+            <button
+              className="btn-checkout"
+              onClick={handleCheckout}
+              disabled={!isEnough}
+            >
               {totalPrice.toLocaleString()}원 결제하기
             </button>
           </div>
