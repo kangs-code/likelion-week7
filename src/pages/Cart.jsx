@@ -16,14 +16,15 @@ function Cart() {
   const [isOrdered, setIsOrdered] = useState(false);
   const navigate = useNavigate();
 
+  const cartEntries = Object.entries(cart);
   const cartItems = Object.values(cart);
-  const grouped = cartItems.reduce((acc, item) => {
+  const grouped = cartEntries.reduce((acc, [cartKey, item]) => {
     if (!acc[item.storeName]) acc[item.storeName] = [];
-    acc[item.storeName].push(item);
+    acc[item.storeName].push({ cartKey, ...item });
     return acc;
   }, {});
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.totalPrice * item.quantity,
     0
   );
 
@@ -66,16 +67,17 @@ function Cart() {
               <div key={storeName} className="cart-store-group">
                 <h3 className="cart-store-name">{storeName}</h3>
                 {items.map((item) => (
-                  <div key={item.id} className="cart-item">
+                  <div key={item.cartKey} className="cart-item">
                     <div className="cart-item-info">
                       <h4>{item.name}</h4>
-                      <p>{(item.price * item.quantity).toLocaleString()}원</p>
+                      <span className="cart-item-option">{item.selectedOption.label}</span>
+                      <p>{(item.totalPrice * item.quantity).toLocaleString()}원</p>
                     </div>
                     <div className="cart-item-controls">
-                      <button onClick={() => updateQuantity(`${item.storeId}-${item.id}`, -1)}>−</button>
+                      <button onClick={() => updateQuantity(item.cartKey, -1)}>−</button>
                       <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(`${item.storeId}-${item.id}`, 1)}>+</button>
-                      <button className="btn-remove" onClick={() => removeItem(`${item.storeId}-${item.id}`)}>✕</button>
+                      <button onClick={() => updateQuantity(item.cartKey, 1)}>+</button>
+                      <button className="btn-remove" onClick={() => removeItem(item.cartKey)}>✕</button>
                     </div>
                   </div>
                 ))}
