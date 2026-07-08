@@ -1,0 +1,24 @@
+.page-layout {
+  padding-top: calc(var(--navbar-height) + var(--page-gap));
+}
+
+.page-layout-center {
+  margin-top: var(--navbar-height);
+  min-height: calc(100vh - var(--navbar-height));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--page-gap);
+}
+
+@media (max-width: 402px) {
+  .page-layout {
+    padding-top: calc(var(--navbar-height) + var(--page-gap-mobile));
+  }
+
+  .page-layout-center {
+    padding: var(--page-gap-mobile);
+  }
+}

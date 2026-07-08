@@ -1,13 +1,3 @@
-.signup-page {
-  min-height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 100px 20px;
-}
-
 .signup-box {
   width: 100%;
   max-width: 400px;

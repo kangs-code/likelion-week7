@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "../components/Card";
 import Modal from "../components/Modal";
+import Layout from "../components/Layout";
 import ccochi from "../assets/ccochi.jpeg";
 import zzazang from "../assets/zzazang.jpeg";
 import pizza from "../assets/pizza.jpeg";
@@ -335,26 +336,28 @@ function Home() {
   const [selectedStore, setSelectedStore] = useState(null);
 
   return (
-    <div className="home-container">
-      <div className="card-grid">
-        {stores.map((item) => (
-          <Card
-            key={item.id}
-            {...item}
-            onClick={() => setSelectedStore(item)}
+    <Layout>
+      <div className="home-container">
+        <div className="card-grid">
+          {stores.map((item) => (
+            <Card
+              key={item.id}
+              {...item}
+              onClick={() => setSelectedStore(item)}
+            />
+          ))}
+        </div>
+        {selectedStore && (
+          <Modal
+            menus={selectedStore.menus}
+            name={selectedStore.name}
+            rate={selectedStore.rate}
+            storeId={selectedStore.id}
+            onClose={() => setSelectedStore(null)}
           />
-        ))}
+        )}
       </div>
-      {selectedStore && (
-        <Modal
-          menus={selectedStore.menus}
-          name={selectedStore.name}
-          rate={selectedStore.rate}
-          storeId={selectedStore.id}
-          onClose={() => setSelectedStore(null)}
-        />
-      )}
-    </div>
+    </Layout>
   );
 }
 

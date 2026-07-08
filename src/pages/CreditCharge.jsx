@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCreditStore from "../store/creditStore";
+import Layout from "../components/Layout";
 import "./CreditCharge.css";
 
 // 다음 주 API 연동을 고려해 충전 금액 프리셋을 데이터로 분리해둠.
@@ -28,44 +29,46 @@ function CreditCharge() {
   };
 
   return (
-    <div className="charge-container">
-      <button className="charge-back" onClick={() => navigate(-1)}>
-        ←
-      </button>
+    <Layout>
+      <div className="charge-container">
+        <button className="charge-back" onClick={() => navigate(-1)}>
+          ←
+        </button>
 
-      <h2>크레딧 충전하기</h2>
+        <h2>크레딧 충전하기</h2>
 
-      <div className="charge-options">
-        {CHARGE_OPTIONS.map((amount) => (
-          <button
-            key={amount}
-            className={selected === amount ? "active" : ""}
-            onClick={() => setSelected(amount)}
-          >
-            +{amount.toLocaleString()}C
-          </button>
-        ))}
+        <div className="charge-options">
+          {CHARGE_OPTIONS.map((amount) => (
+            <button
+              key={amount}
+              className={selected === amount ? "active" : ""}
+              onClick={() => setSelected(amount)}
+            >
+              +{amount.toLocaleString()}C
+            </button>
+          ))}
+        </div>
+
+        <div className="charge-summary">
+          <div className="charge-row">
+            <span>보유 크레딧</span>
+            <span>{credit.toLocaleString()}C</span>
+          </div>
+          <div className="charge-row charge-after">
+            <span>충전 후 크레딧</span>
+            <span>{afterCredit.toLocaleString()}C</span>
+          </div>
+          <div className="charge-row charge-price">
+            <span>결제금액</span>
+            <span>{(selected ?? 0).toLocaleString()}원</span>
+          </div>
+        </div>
+
+        <button className="btn-charge" onClick={handleCharge}>
+          충전하기
+        </button>
       </div>
-
-      <div className="charge-summary">
-        <div className="charge-row">
-          <span>보유 크레딧</span>
-          <span>{credit.toLocaleString()}C</span>
-        </div>
-        <div className="charge-row charge-after">
-          <span>충전 후 크레딧</span>
-          <span>{afterCredit.toLocaleString()}C</span>
-        </div>
-        <div className="charge-row charge-price">
-          <span>결제금액</span>
-          <span>{(selected ?? 0).toLocaleString()}원</span>
-        </div>
-      </div>
-
-      <button className="btn-charge" onClick={handleCharge}>
-        충전하기
-      </button>
-    </div>
+    </Layout>
   );
 }
 

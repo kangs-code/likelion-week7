@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useCartStore from "../store/cartStore";
 import useCreditStore from "../store/creditStore";
+import Layout from "../components/Layout";
 import "./Cart.css";
 
 function Cart() {
@@ -47,22 +48,25 @@ function Cart() {
 
   if (isOrdered) {
     return (
-      <div className="order-complete">
-        <h2>주문 완료!</h2>
-        <p>음식이 배달 됩니다 ...</p>
-        <Link to="/main" className="btn-home">홈으로</Link>
-      </div>
+      <Layout>
+        <div className="order-complete">
+          <h2>주문 완료!</h2>
+          <p>음식이 배달 됩니다 ...</p>
+          <Link to="/main" className="btn-home">홈으로</Link>
+        </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="cart-container">
-      <h2>장바구니</h2>
-      {cartItems.length === 0 ? (
-        <p className="cart-empty">장바구니가 비어있습니다.</p>
-      ) : (
-        <>
-          <div className="cart-items">
+    <Layout>
+      <div className="cart-container">
+        <h2>장바구니</h2>
+        {cartItems.length === 0 ? (
+          <p className="cart-empty">장바구니가 비어있습니다.</p>
+        ) : (
+          <>
+            <div className="cart-items">
             {Object.entries(grouped).map(([storeName, items]) => (
               <div key={storeName} className="cart-store-group">
                 <h3 className="cart-store-name">{storeName}</h3>
@@ -126,7 +130,8 @@ function Cart() {
           </div>
         </>
       )}
-    </div>
+      </div>
+    </Layout>
   );
 }
 

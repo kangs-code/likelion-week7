@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import Layout from "../components/Layout";
 import "./Login.css";
 
 function Login() {
@@ -39,7 +40,7 @@ function Login() {
   };
 
   return (
-    <main className="login-page">
+    <Layout center>
       <form className="login-box" onSubmit={handleLogin}>
         <h1>로그인</h1>
 
@@ -64,7 +65,7 @@ function Login() {
           <Link to="/signup">회원가입</Link>
         </div>
       </form>
-    </main>
+    </Layout>
   );
 }
 
