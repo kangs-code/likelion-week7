@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import useCreditStore from "../store/creditStore";
 import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
+  const credit = useCreditStore((state) => state.credit);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(
@@ -38,6 +40,9 @@ function Navbar() {
           <>
             <Link to="/cart" onClick={closeMenu}>
               장바구니
+            </Link>
+            <Link to="/charge" className="navbar-credit" onClick={closeMenu}>
+              크레딧 충전 <span className="navbar-credit-amount">{credit.toLocaleString()}C</span>
             </Link>
             <button className="navbar-logout" onClick={handleLogout}>
               로그아웃

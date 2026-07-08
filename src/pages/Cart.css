@@ -56,32 +56,55 @@
   padding: 20px;
 }
 
-.cart-total {
+.credit-box {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.credit-row {
   display: flex;
   justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.credit-row-final {
+  border-top: 1px dashed #ddd;
+  margin-top: 4px;
+  padding-top: 12px;
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 20px;
+  color: #222;
 }
 
-.cart-payment h3 {
-  font-size: 16px;
-  margin: 0 0 12px;
+.credit-negative {
+  color: #e53935;
 }
 
-.payment-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 20px;
+.credit-positive {
+  color: #2e7d32;
+  font-weight: bold;
 }
 
-.payment-options button {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
+.credit-insufficient {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.btn-charge-link {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #e53935;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.btn-charge-link:hover {
+  text-decoration: underline;
 }
 
 .btn-checkout {
@@ -93,6 +116,12 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.btn-checkout:disabled {
+  background: #eee;
+  color: #999;
+  cursor: not-allowed;
 }
 
 .cart-store-group {
@@ -140,18 +169,8 @@
   background: #c62828;
 }
 
-.btn-checkout:hover {
+.btn-checkout:hover:not(:disabled) {
   background: #ffc107;
-}
-
-.payment-options button:hover {
-  background: #fff8e1;
-  border-color: #ffd54f;
-}
-
-.payment-options button.active {
-  background: #fff8e1;
-  border-color: #ffd54f;
 }
 
 @media (max-width: 402px) {
@@ -177,12 +196,8 @@
     padding: 16px;
   }
 
-  .cart-total {
+  .credit-row-final {
     font-size: 16px;
-  }
-
-  .payment-options {
-    grid-template-columns: 1fr 1fr;
   }
 
   .btn-checkout {

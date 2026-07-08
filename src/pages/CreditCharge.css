@@ -1,0 +1,106 @@
+.charge-container {
+  padding: 80px 20px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.charge-back {
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.charge-container h2 {
+  margin: 0 0 20px;
+}
+
+.charge-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.charge-options button {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.charge-options button:hover {
+  border-color: #ffd54f;
+  background: #fff8e1;
+}
+
+.charge-options button.active {
+  border-color: #2e7d32;
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.charge-summary {
+  background: #fff8e1;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.charge-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.charge-after span:last-child {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.charge-price {
+  border-top: 1px dashed #ddd;
+  margin-top: 4px;
+  padding-top: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+}
+
+.btn-charge {
+  width: 100%;
+  padding: 14px;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-charge:hover {
+  background: #c62828;
+}
+
+@media (max-width: 402px) {
+  .charge-container {
+    padding: 80px 12px 12px;
+  }
+
+  .charge-container h2 {
+    font-size: 20px;
+  }
+
+  .charge-summary {
+    padding: 16px;
+  }
+}
