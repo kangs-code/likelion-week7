@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -20,8 +21,22 @@ function App() {
         <Route path="/main" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/charge" element={<CreditCharge />} />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/charge"
+          element={
+            <PrivateRoute>
+              <CreditCharge />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

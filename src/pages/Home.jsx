@@ -225,6 +225,7 @@ const stores = [
         name: "연어 초밥 세트 (10p)",
         desc: "생연어 초밥 10피스",
         price: 18000,
+        multiple: true,
         option: [
           { label: "와사비 추가", extra: 1000 },
           { label: "생강 추가", extra: 1000 },
@@ -235,6 +236,7 @@ const stores = [
         name: "모듬 사시미",
         desc: "연어 + 참치 + 광어 모듬",
         price: 24000,
+        multiple: true,
         option: [
           { label: "와사비 추가", extra: 1000 },
           { label: "생강 추가", extra: 1000 },
@@ -245,6 +247,7 @@ const stores = [
         name: "새우 튀김 우동",
         desc: "새우 튀김 2개 + 우동",
         price: 9500,
+        multiple: true,
         option: [
           { label: "새우 추가", extra: 1000 },
           { label: "면 추가", extra: 1000 },
@@ -322,6 +325,7 @@ const stores = [
         name: "모듬 튀김 세트",
         desc: "김말이 + 고구마 + 새우 튀김",
         price: 6000,
+        multiple: true,
         option: [
           { label: "김말이 추가", extra: 1000 },
           { label: "고구마 추가", extra: 1000 },

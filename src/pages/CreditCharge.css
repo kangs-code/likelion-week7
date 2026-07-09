@@ -40,7 +40,7 @@
   background: #fff8e1;
 }
 
-.charge-options button.active {
+.charge-options button:active {
   border-color: #2e7d32;
   background: #e8f5e9;
   color: #2e7d32;
@@ -73,6 +73,17 @@
   font-size: 16px;
   font-weight: bold;
   color: #222;
+}
+
+.btn-reset {
+  display: block;
+  margin: 0 auto 12px;
+  border: none;
+  background: none;
+  color: #999;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .btn-charge {

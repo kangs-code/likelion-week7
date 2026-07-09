@@ -4,8 +4,6 @@ import useCreditStore from "../store/creditStore";
 import Layout from "../components/Layout";
 import "./CreditCharge.css";
 
-// 다음 주 API 연동을 고려해 충전 금액 프리셋을 데이터로 분리해둠.
-// (서버에서 상품 목록을 받아오는 형태로 바뀌어도 렌더링 로직은 그대로 재사용 가능)
 const CHARGE_OPTIONS = [1000, 3000, 5000, 10000];
 
 function CreditCharge() {
@@ -13,18 +11,27 @@ function CreditCharge() {
   const charge = useCreditStore((state) => state.charge);
   const navigate = useNavigate();
 
-  const [selected, setSelected] = useState(null);
+  const [chargeAmount, setChargeAmount] = useState(0);
 
-  const afterCredit = credit + (selected ?? 0);
+  const afterCredit = credit + chargeAmount;
+
+  const handleAddAmount = (amount) => {
+    setChargeAmount((prev) => prev + amount);
+  };
+
+  const handleReset = () => {
+    setChargeAmount(0);
+  };
 
   const handleCharge = () => {
-    if (!selected) {
+    if (chargeAmount <= 0) {
       alert("충전할 금액을 선택해주세요.");
       return;
     }
 
-    charge(selected);
-    alert(`${selected.toLocaleString()}C가 충전되었습니다.`);
+    charge(chargeAmount);
+    alert(`${chargeAmount.toLocaleString()}C가 충전되었습니다.`);
+    setChargeAmount(0);
     navigate(-1);
   };
 
@@ -39,11 +46,7 @@ function CreditCharge() {
 
         <div className="charge-options">
           {CHARGE_OPTIONS.map((amount) => (
-            <button
-              key={amount}
-              className={selected === amount ? "active" : ""}
-              onClick={() => setSelected(amount)}
-            >
+            <button key={amount} onClick={() => handleAddAmount(amount)}>
               +{amount.toLocaleString()}C
             </button>
           ))}
@@ -60,9 +63,15 @@ function CreditCharge() {
           </div>
           <div className="charge-row charge-price">
             <span>결제금액</span>
-            <span>{(selected ?? 0).toLocaleString()}원</span>
+            <span>{chargeAmount.toLocaleString()}원</span>
           </div>
         </div>
+
+        {chargeAmount > 0 && (
+          <button className="btn-reset" onClick={handleReset}>
+            초기화
+          </button>
+        )}
 
         <button className="btn-charge" onClick={handleCharge}>
           충전하기
