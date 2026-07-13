@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import useCreditStore from "../store/creditStore";
@@ -7,14 +7,22 @@ import "./Navbar.css";
 function Navbar() {
   const navigate = useNavigate();
   const credit = useCreditStore((state) => state.credit);
+  const fetchCredit = useCreditStore((state) => state.fetchCredit);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(
     localStorage.getItem("isLogin") === "true",
   );
 
+  useEffect(() => {
+    if (isLogin) {
+      fetchCredit();
+    }
+  }, [isLogin, fetchCredit]);
+
   const handleLogout = () => {
     localStorage.removeItem("isLogin");
+    localStorage.removeItem("accessToken");
     setIsLogin(false);
     setIsOpen(false);
     alert("로그아웃 되었습니다.");

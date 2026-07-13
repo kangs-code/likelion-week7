@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCreditStore from "../store/creditStore";
 import Layout from "../components/Layout";
@@ -9,9 +9,15 @@ const CHARGE_OPTIONS = [1000, 3000, 5000, 10000];
 function CreditCharge() {
   const credit = useCreditStore((state) => state.credit);
   const charge = useCreditStore((state) => state.charge);
+  const fetchCredit = useCreditStore((state) => state.fetchCredit);
   const navigate = useNavigate();
 
   const [chargeAmount, setChargeAmount] = useState(0);
+  const [isCharging, setIsCharging] = useState(false);
+
+  useEffect(() => {
+    fetchCredit();
+  }, [fetchCredit]);
 
   const afterCredit = credit + chargeAmount;
 
@@ -23,16 +29,23 @@ function CreditCharge() {
     setChargeAmount(0);
   };
 
-  const handleCharge = () => {
+  const handleCharge = async () => {
     if (chargeAmount <= 0) {
       alert("충전할 금액을 선택해주세요.");
       return;
     }
 
-    charge(chargeAmount);
-    alert(`${chargeAmount.toLocaleString()}C가 충전되었습니다.`);
-    setChargeAmount(0);
-    navigate(-1);
+    try {
+      setIsCharging(true);
+      await charge(chargeAmount);
+      alert(`${chargeAmount.toLocaleString()}C가 충전되었습니다.`);
+      setChargeAmount(0);
+      navigate(-1);
+    } catch (error) {
+      alert(error.message || "충전에 실패했습니다.");
+    } finally {
+      setIsCharging(false);
+    }
   };
 
   return (
@@ -73,8 +86,8 @@ function CreditCharge() {
           </button>
         )}
 
-        <button className="btn-charge" onClick={handleCharge}>
-          충전하기
+        <button className="btn-charge" onClick={handleCharge} disabled={isCharging}>
+          {isCharging ? "충전 중..." : "충전하기"}
         </button>
       </div>
     </Layout>

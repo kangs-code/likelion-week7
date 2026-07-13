@@ -11,11 +11,8 @@ function Modal({ menus, onClose, name, rate, storeId }) {
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  // menu.multiple이 true인 메뉴는 옵션을 여러 개 동시에 고를 수 있다 (예: 토핑 추가).
-  // 그 외에는 기존처럼 하나만 고를 수 있다 (예: 맵기, 사이즈).
   const isMultiple = (menu) => menu.multiple === true;
 
-  // 현재 선택된 옵션. 단일 선택 메뉴는 옵션 객체 하나, 복수 선택 메뉴는 옵션 객체 배열.
   const getSelected = (menu) => {
     if (isMultiple(menu)) {
       return selectedOptions[menu.id] || [];
@@ -45,8 +42,6 @@ function Modal({ menus, onClose, name, rate, storeId }) {
     }
   };
 
-  // 복수 선택이든 단일 선택이든, 장바구니/가격 계산 쪽에서는 똑같이
-  // { label, extra } 하나로 취급할 수 있도록 합쳐준다.
   const getCombinedOption = (menu) => {
     const selected = getSelected(menu);
     if (!isMultiple(menu)) return selected;

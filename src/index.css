@@ -3,8 +3,6 @@
 }
 
 :root {
-  /* Navbar.jsx가 fixed로 떠 있기 때문에, 그 아래 콘텐츠들이 공통으로 참조하는 값.
-     Layout 컴포넌트(components/Layout.jsx)에서 페이지 상단 여백을 계산할 때 사용한다. */
   --navbar-height: 64px;
   --page-gap: 20px;
   --page-gap-mobile: 12px;

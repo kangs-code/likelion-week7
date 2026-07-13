@@ -2,35 +2,37 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Layout from "../components/Layout";
+import { signup } from "../api/memberApi";
 import "./Signup.css";
 
 function Signup() {
   const navigate = useNavigate();
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isValid = id !== "" && password !== "" && nickname !== "";
+  const isValid = email !== "" && password !== "" && name !== "";
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    if (!isValid) {
+    if (!isValid || isSubmitting) {
       return;
     }
 
-    const userInfo = {
-      id: id,
-      password: password,
-      nickname: nickname,
-    };
+    try {
+      setIsSubmitting(true);
+      await signup({ email, password, name });
 
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
-    alert("회원가입 완료");
-
-    navigate("/login");
+      alert("회원가입 완료");
+      navigate("/login");
+    } catch (error) {
+      alert(error.message || "회원가입에 실패했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -39,10 +41,10 @@ function Signup() {
         <h1>회원가입</h1>
 
         <input
-          type="text"
-          placeholder="아이디 입력"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
+          type="email"
+          placeholder="이메일 입력"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
@@ -54,12 +56,14 @@ function Signup() {
 
         <input
           type="text"
-          placeholder="닉네임 입력"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          placeholder="이름 입력"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
 
-        <button disabled={!isValid}>회원가입</button>
+        <button disabled={!isValid || isSubmitting}>
+          {isSubmitting ? "가입 중..." : "회원가입"}
+        </button>
 
         <div className="login-link">
           <span>이미 계정이 있나요?</span>
