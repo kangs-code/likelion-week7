@@ -9,7 +9,7 @@ const useCreditStore = create((set, get) => ({
     set({ isLoading: true });
     try {
       const result = await getCredit();
-      set({ credit: result?.credit ?? result ?? 0 });
+      set({ credit: result?.balance ?? 0 });
     } catch (error) {
       console.error("크레딧 조회 실패:", error.message);
     } finally {
