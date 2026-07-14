@@ -10,10 +10,15 @@ function Signup() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isValid = email !== "" && password !== "" && name !== "";
+  const isPasswordMatch = passwordCheck === "" || password === passwordCheck;
+  const isValid =
+    email !== "" &&
+    password !== "" &&
+    passwordCheck !== "" &&
+    password === passwordCheck;
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -24,7 +29,7 @@ function Signup() {
 
     try {
       setIsSubmitting(true);
-      await signup({ email, password, name });
+      await signup({ email, password });
 
       alert("회원가입 완료");
       navigate("/login");
@@ -55,11 +60,15 @@ function Signup() {
         />
 
         <input
-          type="text"
-          placeholder="이름 입력"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          type="password"
+          placeholder="비밀번호 확인"
+          value={passwordCheck}
+          onChange={(e) => setPasswordCheck(e.target.value)}
         />
+
+        {!isPasswordMatch && (
+          <span className="password-mismatch">비밀번호가 일치하지 않습니다.</span>
+        )}
 
         <button disabled={!isValid || isSubmitting}>
           {isSubmitting ? "가입 중..." : "회원가입"}

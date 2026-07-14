@@ -1,7 +1,7 @@
 import instance from "./axiosInstance";
 
-export const signup = ({ email, password, name }) => {
-  return instance.post("/api/v1/auth/signup", { email, password, name });
+export const signup = ({ email, password }) => {
+  return instance.post("/api/v1/auth/signup", { email, password });
 };
 
 export const login = ({ email, password }) => {

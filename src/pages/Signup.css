@@ -46,6 +46,12 @@
   background-color: #ccc;
 }
 
+.password-mismatch {
+  margin-top: -8px;
+  color: #e53935;
+  font-size: 13px;
+}
+
 .login-link {
   display: flex;
   justify-content: center;
