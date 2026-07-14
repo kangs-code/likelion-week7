@@ -1,52 +1,49 @@
 import { create } from "zustand";
+import {
+  getCart,
+  addCartItem,
+  updateCartItemQuantity,
+  deleteCartItem,
+} from "../api/cartApi";
 
-const useCartStore = create((set) => ({
-  cart: {},
+const useCartStore = create((set, get) => ({
+  cartItems: [],   
+  totalPrice: 0,
+  isLoading: false,
 
-  addItem: (menu, storeName, storeId, selectedOption) =>
-    set((state) => {
-      const cartKey = `${storeId}-${menu.id}-${selectedOption.label}`;
-      const existing = state.cart[cartKey];
-      return {
-        cart: {
-          ...state.cart,
-          [cartKey]: existing
-            ? { ...existing, quantity: existing.quantity + 1 }
-            : {
-                ...menu,
-                quantity: 1,
-                storeName,
-                storeId,
-                selectedOption,
-                totalPrice: menu.price + selectedOption.extra,
-              },
-        },
-      };
-    }),
+  // 장바구니 조회 
+  fetchCart: async () => {
+    set({ isLoading: true });
+    try {
+      const result = await getCart();
+      set({
+        cartItems: result?.cartItems || [],
+        totalPrice: result?.totalPrice || 0,
+      });
+    } catch (error) {
+      console.error("장바구니 조회 실패:", error.message);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
-  removeItem: (cartKey) =>
-    set((state) => {
-      const next = { ...state.cart };
-      delete next[cartKey];
-      return { cart: next };
-    }),
+  // 장바구니 추가 
+  addItem: async (menuId, quantity, selectedOptions) => {
+    await addCartItem({ menuId, quantity, selectedOptions });
+    await get().fetchCart();
+  },
 
-  updateQuantity: (cartKey, delta) =>
-    set((state) => {
-      const item = state.cart[cartKey];
-      if (!item) return state;
-      const newQty = item.quantity + delta;
-      if (newQty <= 0) {
-        const next = { ...state.cart };
-        delete next[cartKey];
-        return { cart: next };
-      }
-      return {
-        cart: { ...state.cart, [cartKey]: { ...item, quantity: newQty } },
-      };
-    }),
+  // 수량 변경 
+  updateQuantity: async (cartItemId, newQuantity) => {
+    await updateCartItemQuantity(cartItemId, newQuantity);
+    await get().fetchCart();
+  },
 
-  clearCart: () => set({ cart: {} }),
+  // 삭제
+  removeItem: async (cartItemId) => {
+    await deleteCartItem(cartItemId);
+    await get().fetchCart();
+  },
 }));
 
 export default useCartStore;
