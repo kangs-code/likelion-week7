@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useCartStore from "../store/cartStore";
 import useCreditStore from "../store/creditStore";
-import { createOrder } from "../api/orderApi";
+import { createOrder } from "../api/OrderApi";
 import Layout from "../components/Layout";
 import "./Cart.css";
 

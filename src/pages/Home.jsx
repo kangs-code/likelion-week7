@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "../components/Card";
 import Modal from "../components/Modal";
 import Layout from "../components/Layout";
-import { getStores, getStoreDetail } from "../api/storeApi";
+import { getStores, getStoreDetail } from "../api/StoreApi";
 import "./Home.css";
 
 function Home() {
