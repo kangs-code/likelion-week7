@@ -4,7 +4,7 @@ import {
   addCartItem,
   updateCartItemQuantity,
   deleteCartItem,
-} from "../api/cartApi";
+} from "../api/CartApi";
 
 const useCartStore = create((set, get) => ({
   cartItems: [],   
