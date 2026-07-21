@@ -59,6 +59,10 @@ function Signup() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
+        <span className="password-hint">
+          영문, 숫자, 특수문자를 포함한 8자 이상 입력해주세요.
+        </span>
+
         <input
           type="password"
           placeholder="비밀번호 확인"
