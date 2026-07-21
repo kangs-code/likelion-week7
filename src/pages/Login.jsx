@@ -14,6 +14,10 @@ function Login() {
 
   const isValid = email !== "" && password !== "";
 
+  const handleKakaoLogin = () => {
+    window.location.href = "https://sangjun.shop/api/v1/auth/kakao/login";
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -60,6 +64,14 @@ function Login() {
 
         <button disabled={!isValid || isSubmitting}>
           {isSubmitting ? "로그인 중..." : "로그인"}
+        </button>
+
+        <button
+          type="button"
+          className="kakao-login-button"
+          onClick={handleKakaoLogin}
+        >
+          카카오로 로그인
         </button>
 
         <div className="signup-link">

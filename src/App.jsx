@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 import CreditCharge from "./pages/CreditCharge";
+import OauthSuccess from "./pages/OauthSuccess";
 
 import "./index.css";
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/main" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/oauth/success" element={<OauthSuccess />} />
         <Route
           path="/cart"
           element={
