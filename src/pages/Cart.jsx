@@ -129,7 +129,7 @@ function Cart() {
                       </span>
                     )}
                     <p>
-                      {(item.expectPrice * item.quantity).toLocaleString()}원
+                      {(item.expectPrice).toLocaleString()}원
                     </p>
                   </div>
                   <div className="cart-item-controls">
