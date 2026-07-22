@@ -30,7 +30,6 @@ function Cart() {
 
   const remainingCredit = credit - totalPrice;
   const isEnough = totalPrice > 0 && remainingCredit >= 0;
-
  
 
   const handleQuantityChange = async (item, delta) => {
@@ -157,10 +156,6 @@ function Cart() {
 
               <div className="credit-box">
                 <div className="credit-row">
-                  <span>총 결제금액</span>
-                  <span>{totalPrice.toLocaleString()}원</span>
-                </div>
-                <div className="credit-row">
                   <span>보유 크레딧</span>
                   <span>{credit.toLocaleString()}C</span>
                 </div>
@@ -170,7 +165,7 @@ function Cart() {
                     -{totalPrice.toLocaleString()}C
                   </span>
                 </div>
-                <div className="credit-row credit-row-final">
+                <div className="credit-row">
                   <span>결제 후 잔액</span>
                   <span
                     className={
@@ -179,6 +174,10 @@ function Cart() {
                   >
                     {remainingCredit.toLocaleString()}C
                   </span>
+                </div>
+                <div className="credit-row credit-row-final">
+                  <span>총 결제금액</span>
+                  <span>{totalPrice.toLocaleString()}원</span>
                 </div>
               </div>
 
